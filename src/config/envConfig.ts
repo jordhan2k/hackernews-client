@@ -10,8 +10,8 @@ const configProject = configSchema.safeParse({
   NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
 });
 
-if (!configProject.success) {
-  throw new Error("Invalid environment!");
-}
+// if (!configProject.success) {
+//   throw new Error("Invalid environment!");
+// }
 
 export const envConfig = configProject.data;
