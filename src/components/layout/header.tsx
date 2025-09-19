@@ -1,30 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button } from "../ui/button";
-import { RiCloseLine, RiMenuFill } from "@remixicon/react";
-import Image from "next/image";
-import { PortalWrapper } from "../portal-wrapper";
-import clsx from "clsx";
-import Sidebar from "./sidebar";
 import { Logo } from "@/assets/icons";
+import { RiMenuFill } from "@remixicon/react";
+import clsx from "clsx";
+import { useState } from "react";
+import { PortalWrapper } from "../portal-wrapper";
+import { Button } from "../ui/button";
+import Sidebar from "./sidebar";
 
 function Header() {
   return (
     <div className="flex xl:hidden px-3 md:px-8 py-4  items-center justify-between border-b border-neutral-200">
-      {/* <Image
-        src={"./logo.svg"}
-        alt="hacker news' logo"
-        width={132}
-        height={32}
-      /> */}
       <Logo />
       <ButtonWithSidebar />
     </div>
   );
 }
 
-function ButtonWithSidebar({}) {
+function ButtonWithSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = (state?: boolean) => {
     setIsOpen((prev) => (state !== undefined ? state : !prev));

@@ -1,6 +1,7 @@
 "use server";
 
-import { IGetIdBatch } from "@/types/item.type";
+import { envConfig } from "@/config";
+import type { IGetIdBatch } from "@/types/item.type";
 
 type FetchNewDataParams = {
   // prevCursor: number | null;
@@ -39,9 +40,9 @@ export const fetchNewData = async ({
   const fetchDetailPromises = idList
     .slice(firstIndex, firstIndex + size)
     .map((id) => {
-      return fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${id}.json`,
-      ).then((res) => res.json());
+      return fetch(`${envConfig.API_ENDPOINT}/item/${id}.json`).then((res) =>
+        res.json(),
+      );
     });
 
   const detailList = (await Promise.all(fetchDetailPromises)) ?? [];

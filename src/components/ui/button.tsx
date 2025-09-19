@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -41,7 +41,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-orange-500 text-white hover:bg-orange-800 focus:bg-orange-800 focus:ring-orange-600/12 disabled:bg-neutral-100 disabled:text-neutral-400 disabled:shadow-none!",
+          "bg-primary text-primary-foreground hover:bg-orange-800 focus:bg-orange-800 focus:ring-orange-600/12 disabled:bg-neutral-100 disabled:text-neutral-400 disabled:shadow-none!",
         secondary:
           "bg-white border border-neutral-200 text-neutral-950 hover:text-neutral-950 hover:bg-neutral-50 focus:bg-neutral-50 focus:shadow-none! focus:ring-indigo-800/20 disabled:bg-neutral-100 disabled:text-neutral-400 disabled:shadow-none! disabled:border-none",
         tertiary:
@@ -49,7 +49,7 @@ const buttonVariants = cva(
         "link-color":
           "shadow-none! p-0! text-orange-500 hover:text-orange-800 focus:text-orange-800 focus:bg-neutral-50 focus:ring-orange-800/20 disabled:text-neutral-400",
         "link-gray":
-          "shadow-none p-0! text-neutral-600 hover:text-neutral-900 focus:text-neutral-900 focus:bg-neutral-50 focus:ring-indigo-800/20 disabled:text-neutral-400",
+          "shadow-none p-0! text-secondary-foreground hover:text-foreground focus:text-foreground focus:bg-neutral-50 focus:ring-indigo-800/20 disabled:text-neutral-400",
         destructive:
           "bg-red-600 text-white hover:bg-red-700 focus:bg-red-700 focus:ring-red-800/20 disabled:bg-neutral-100 disabled:text-neutral-400 disabled:shadow-none!",
       },

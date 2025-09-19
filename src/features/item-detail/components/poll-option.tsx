@@ -16,11 +16,11 @@ function PollOption({ label, score, percentage }: PollOptionType) {
             width: `${percentage}%`,
           }}
         />
-        <div className="p-2 text-sm font-normal text-neutral-900 mix-blend-darken">
+        <div className="p-2 text-sm font-normal text-foreground mix-blend-darken">
           {parse(label ?? "")}
         </div>
       </div>
-      <div className="w-[100px] text-sm font-medium text-neutral-900 text-right">
+      <div className="w-[100px] text-sm font-medium text-foreground text-right">
         {score} {score > 1 ? "points" : "point"}
       </div>
     </div>

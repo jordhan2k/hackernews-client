@@ -71,9 +71,10 @@ function Sidebar({ isMobile, onClose }: SidebarProps) {
               href={url}
               onClick={() => isMobile && onClose?.()}
               className={clsx(
-                "flex items-center gap-3 p-1.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-orange-50/90",
+                "flex items-center gap-3 p-1.5 rounded-lg text-sm font-medium  hover:bg-orange-50/90",
                 {
-                  "text-orange-600 bg-orange-50": url === pathname,
+                  "text-secondary-foreground": url !== pathname,
+                  "text-primary bg-orange-50": url === pathname,
                 },
               )}
             >

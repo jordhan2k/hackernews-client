@@ -1,5 +1,3 @@
-import React from "react";
-
 type ListHeaderProps = {
   title: string;
   description: string;

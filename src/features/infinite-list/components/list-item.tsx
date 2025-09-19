@@ -1,3 +1,6 @@
+"use client";
+
+import MetaTag from "@/components/meta-tag";
 import { getHostname, getRelativeTime } from "@/lib/utils";
 import { IItem } from "@/types/item.type";
 import {
@@ -11,7 +14,6 @@ import {
   RiTimeLine,
 } from "@remixicon/react";
 import Link from "next/link";
-import MetaTag from "../../../components/meta-tag";
 
 const IconMap: Record<IItem["type"], RemixiconComponentType> = {
   story: RiArticleLine,
@@ -31,11 +33,12 @@ function ListItem({
   score,
   by,
   time,
-  kids,
+  descendants,
 }: ListItemProps) {
   const Icon = url ? RiExternalLinkLine : IconMap[type];
   const hostname = url ? getHostname(url) : null;
   const href = url ?? `/item/${id}`;
+
   return (
     <Link
       href={href}
@@ -47,9 +50,9 @@ function ListItem({
       </div>
       <div className="flex-1 flex flex-col gap-2">
         <div className="inline-flex flex-col md:flex-row flex-wrap gap-1">
-          <h2 className="text-sm font-medium text-neutral-900">{title}</h2>
+          <h2 className="text-sm font-medium text-foreground">{title}</h2>
           {hostname ? (
-            <span className="text-xs font-normal text-neutral-600 leading-5">
+            <span className="text-xs font-normal text-secondary-foreground leading-5">
               ({hostname})
             </span>
           ) : null}
@@ -65,9 +68,10 @@ function ListItem({
             }
           />
           <MetaTag icon={RiTimeLine} content={getRelativeTime(time)} />
+
           <MetaTag
             icon={RiChat2Line}
-            content={`${kids?.length ?? 0} comments`}
+            content={`${descendants ?? 0} comments`}
           />
         </div>
       </div>

@@ -6,14 +6,12 @@ import {
   ListItem,
   ListItemSkeleton,
 } from "@/features/infinite-list/components/list-item";
-import {
-  RiArrowDownLine,
-  RiEmotionSadLine,
-  RiLoaderLine,
-} from "@remixicon/react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { RiArrowDownLine } from "@remixicon/react";
 import { ReactNode } from "react";
-import { fetchNewData } from "./action";
+import EmptyIndicator from "./components/empty-indicator";
+import ErrorIndicator from "./components/error-indicator";
+import LoadingIndicator from "./components/loading-indicator";
+import { useInfiniteList } from "./use-infinite-list";
 
 type InfiniteListProps = {
   title: string;
@@ -38,80 +36,20 @@ function InfiniteList({
     isLoading,
     isFetching,
     error,
-  } = useInfiniteQuery({
-    queryKey: [queryKey],
-    queryFn: ({ pageParam = 0 }) =>
-      fetchNewData({
-        start: pageParam,
-        endpoint,
-      }),
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => (lastPage.next ? lastPage.next : undefined),
-  });
+  } = useInfiniteList(queryKey, endpoint);
 
   const mergedData = data?.pages?.flatMap((p) => p.data);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-full px-4 md:px-8  xl:px-[6.4rem] xl:py-10">
-        <div className="p-6 flex flex-col items-center text-center max-w-[20rem] w-full">
-          <div className="size-12 flex items-center justify-center text-orange-500 mb-5">
-            <RiLoaderLine className="animate-spin" />
-          </div>
-          <div className="text-xl font-medium text-neutral-900 mb-2">
-            Loading...
-          </div>
-          <p className="text-base font-normal text-neutral-900 ">
-            Almost there! We're setting everything up for you.
-          </p>
-        </div>
-      </div>
-    );
+    return <LoadingIndicator />;
   }
 
   if (!isFetching && !!error) {
-    return (
-      <div className="flex items-center justify-center h-full px-4 md:px-8  xl:px-[6.4rem] xl:py-10">
-        <div className="p-6 flex flex-col items-center text-center max-w-[20rem] w-full">
-          <div className="size-12 flex items-center justify-center text-orange-500 mb-5 shadow rounded-full">
-            <RiEmotionSadLine />
-          </div>
-          <div className="text-xl font-medium text-neutral-900 mb-2">
-            Unexpected error
-          </div>
-          <p className="text-base font-normal text-neutral-900 ">
-            We're facing some issues at the moment. Please try again later or
-            contact support at{" "}
-            <a href="mailto:support@codepulse.com" className="text-orange-600">
-              support@codepulse.com
-            </a>
-          </p>
-        </div>
-      </div>
-    );
+    return <ErrorIndicator />;
   }
 
   if (!isFetching && !mergedData?.length) {
-    return (
-      <div className="flex items-center justify-center h-full px-4 md:px-8  xl:px-[6.4rem] xl:py-10">
-        <div className="p-6 flex flex-col items-center text-center max-w-[20rem] w-full">
-          <div className="size-12 flex items-center justify-center text-orange-500 mb-5 shadow rounded-lg">
-            {icon}
-          </div>
-          <div className="text-xl font-medium text-neutral-900 mb-2">
-            No Posts Available
-          </div>
-          <p className="text-base font-normal text-neutral-900 ">
-            Hang tight! We'll have more for you soon. If you believe this is an
-            error, feel free to reach out to us.
-          </p>
-
-          <Button size="lg" className="w-full mt-5">
-            Contact
-          </Button>
-        </div>
-      </div>
-    );
+    return <EmptyIndicator icon={icon} />;
   }
 
   return (
@@ -137,11 +75,7 @@ function InfiniteList({
               className="w-full md:w-fit "
             >
               More
-              {isFetchingNextPage ? (
-                <RiLoaderLine className="animate-spin" />
-              ) : (
-                <RiArrowDownLine />
-              )}
+              <RiArrowDownLine />
             </Button>
           </div>
         ) : null}
