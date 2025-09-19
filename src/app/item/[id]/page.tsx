@@ -12,8 +12,7 @@ type ItemPageProps = {
 // poll detail: 127203
 // ask: 45251624
 
-export const revalidate = 60 * 60; // revalidate at most every hour
-export const dynamicParams = true; // like fallback: true
+
 
 export async function generateMetadata({
   params,
@@ -34,6 +33,9 @@ export async function generateStaticParams() {
   }));
 }
 
+export const revalidate = 3600; // revalidate at most every hour
+export const dynamicParams = true; // like fallback: true
+
 export default async function ItemPage({ params }: ItemPageProps) {
   const { id } = await params;
   const result: IItem = await fetchItemDetail({ id: Number(id) });
@@ -51,3 +53,4 @@ export default async function ItemPage({ params }: ItemPageProps) {
     </div>
   );
 }
+

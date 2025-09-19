@@ -16,11 +16,7 @@ export async function CommentItem({
 }) {
   const result: IItem = await fetchItemDetail({ id });
 
-  const { time, by, text, kids, deleted, dead } = result;
-
-  if (deleted || dead) {
-    return null;
-  }
+  const { time, by, text, kids, deleted } = result;
 
   return (
     <div
